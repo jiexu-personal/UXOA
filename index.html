@@ -1,156 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINGsCARS - Low Fidelity Prototype</title>
-<style>
-  /* 基础设置：统一字体，黑白灰配色，增加留白 */
-  body { 
-    font-family: Arial, sans-serif; 
-    color: #333; 
-    margin: 0; 
-    padding: 0; 
-    background-color: #f4f4f4; 
-  }
-  
-  /* 线框图占位符样式：虚线边框，灰色背景 */
-  .wireframe-box { 
-    border: 2px dashed #999; 
-    background-color: #e9e9e9; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #666; 
-    font-weight: bold; 
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LINGsCARS - Modern UX Wireframe Prototype</title>
+  <style>
+    /* 全局现代化 UX 样式：统一字体、增加留白、极简黑白灰 */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #222;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      line-height: 1.5;
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* 线框图虚线占位符标准 */
+    .wf-placeholder {
+      border: 2px dashed #a0a0a0;
+      background-color: #eaeded;
+      color: #666;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-  /* 顶部导航栏 */
-  header { 
-    display: flex; 
-    justify-content: space-between; 
-    padding: 20px 40px; 
-    background: #fff; 
-    border-bottom: 2px solid #ccc; 
-  }
-  .logo { width: 150px; height: 50px; }
-  nav { display: flex; gap: 20px; align-items: center; font-weight: bold; }
-  .header-actions { display: flex; gap: 15px; align-items: center; }
-  
-  /* 按钮通用样式 */
-  .btn { 
-    display: inline-block; 
-    padding: 10px 20px; 
-    background: #555; 
-    color: #fff; 
-    text-decoration: none; 
-    border-radius: 4px; 
-    font-weight: bold;
-  }
+    /* 顶部导航栏优化：结构清晰，突出核心联系方式 */
+    header {
+      background: #ffffff;
+      border-bottom: 2px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+    .logo { width: 160px; height: 45px; font-size: 0.9rem; }
+    nav { display: flex; gap: 25px; font-weight: 600; color: #444; }
+    nav span { cursor: pointer; transition: color 0.2s; }
+    nav span:hover { color: #000; }
+    .header-right { display: flex; gap: 15px; align-items: center; }
+    .search-bar { width: 180px; height: 35px; border-radius: 4px; font-size: 0.8rem; }
+    .btn {
+      display: inline-block;
+      padding: 8px 18px;
+      background: #333333;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: #000000; }
+    .btn-secondary { background: #7f8c8d; }
+    .btn-secondary:hover { background: #616a6b; }
 
-  /* 主视觉区 (Hero Section) */
-  .hero { 
-    text-align: center; 
-    padding: 80px 20px; 
-    background: #ddd; 
-    border-bottom: 1px solid #ccc;
-  }
-  .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-  .hero h2 { font-size: 1.2rem; color: #555; margin-bottom: 30px; font-weight: normal; }
+    /* 主视觉区 Hero Section：消除认知载荷，聚焦痛点 */
+    .hero {
+      background: #e5e8e8;
+      padding: 60px 0;
+      text-align: center;
+      border-bottom: 1px solid #d5dbdb;
+    }
+    .hero h1 { font-size: 2.2rem; margin: 0 0 15px 0; color: #111; font-weight: 700; }
+    .hero p { font-size: 1.1rem; color: #555; margin: 0 0 25px 0; }
 
-  /* 信任背书区 (Trust Signals) */
-  .trust-signals { 
-    display: flex; 
-    justify-content: center; 
-    gap: 40px; 
-    padding: 30px; 
-    background: #fff; 
-  }
-  .badge { width: 120px; height: 120px; border-radius: 50%; text-align: center; line-height: 1.4; }
+    /* 信任信号区 Trust Signals */
+    .trust-section { background: #ffffff; padding: 25px 0; border-bottom: 1px solid #e0e0e0; }
+    .trust-flex { display: flex; justify-content: center; gap: 50px; }
+    .badge { width: 110px; height: 110px; border-radius: 50%; font-size: 0.8rem; padding: 10px; }
 
-  /* 核心功能区：车辆列表 */
-  .featured-cars { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 30px; 
-    padding: 50px 40px; 
-    max-width: 1200px; 
-    margin: 0 auto; 
-  }
-  .card { 
-    background: #fff; 
-    border: 2px solid #ccc; 
-    padding: 20px; 
-    text-align: center; 
-    border-radius: 8px;
-  }
-  .car-img { width: 100%; height: 180px; margin-bottom: 20px; }
-  .card h3 { margin: 10px 0; font-size: 1.4rem; }
-  .card p { font-size: 1.2rem; color: #333; margin-bottom: 20px; font-weight: bold;}
+    /* 核心车辆网格区：规范排版 */
+    .main-content { padding: 40px 0; }
+    .section-title { font-size: 1.6rem; font-weight: 700; margin-bottom: 25px; text-align: center; }
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .car-card {
+      background: #ffffff;
+      border: 1px solid #d5dbdb;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .car-img-box { width: 100%; height: 180px; border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
+    .car-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .car-card h3 { margin: 10px 0 5px 0; font-size: 1.3rem; color: #111; }
+    .car-card .price { font-size: 1.4rem; font-weight: 700; color: #2c3e50; margin: 10px 0 20px 0; }
 
-  /* 底部信息栏 */
-  footer { 
-    background: #333; 
-    color: #fff; 
-    text-align: center; 
-    padding: 30px; 
-    margin-top: 20px;
-  }
-</style>
+    /* 底部设计与隐藏的后台入口 */
+    footer { background: #2c3e50; color: #ffffff; padding: 40px 0; font-size: 0.9rem; margin-top: 60px; }
+    .footer-flex { display: flex; justify-content: space-between; align-items: center; }
+    .footer-links span { margin-right: 15px; color: #bdc3c7; cursor: pointer; }
+    /* 隐藏的后台系统按钮，完美伪装成版权信息旁边的一个微小的系统齿轮链接 */
+    .hidden-admin-link {
+      color: #7f8c8d;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .hidden-admin-link:hover { color: #ffffff; }
+  </style>
 </head>
 <body>
 
   <header>
-    <div class="wireframe-box logo">LINGsCARS Logo</div>
-    <nav>
-      <span>Home</span> | 
-      <span>Personal Leasing</span> | 
-      <span>Business Leasing</span> | 
-      <span>Manufacturers</span>
-    </nav>
-    <div class="header-actions">
-      <span class="wireframe-box" style="padding: 10px;">Search 🔍</span>
-      <a href="#" class="btn" style="background: #888;">Contact Us</a>
+    <div class="container header-inner">
+      <div class="wf-placeholder logo">LINGsCARS Logo [Wireframe]</div>
+      <nav>
+        <span>Personal Leasing</span>
+        <span>Business Leasing</span>
+        <span>Special Offers</span>
+        <span>How It Works</span>
+      </nav>
+      <div class="header-right">
+        <div class="wf-placeholder search-bar">Quick Search 🔍</div>
+        <a href="#" class="btn">Contact Support</a>
+      </div>
     </div>
   </header>
 
   <section class="hero">
-    <h1>Affordable Car Leasing in the UK</h1>
-    <h2>Compare prices for personal and business use with zero visual clutter.</h2>
-    <a href="#" class="btn" style="background: #333; font-size: 1.2rem; padding: 15px 30px;">Get a Quote</a>
+    <div class="container">
+      <h1>Car Leasing Transparently & Simply</h1>
+      <p>Streamlined layout designed to minimize cognitive load and eliminate visual clutter.</p>
+      <a href="#" class="btn" style="padding: 12px 30px; font-size: 1rem;">Browse All Vehicles</a>
+    </div>
   </section>
 
-  <section class="trust-signals">
-    <div class="wireframe-box badge"><br>Customer Reviews<br>⭐⭐⭐⭐⭐</div>
-    <div class="wireframe-box badge">Trust Badge 1</div>
-    <div class="wireframe-box badge">Trust Badge 2</div>
+  <section class="trust-section">
+    <div class="container trust-flex">
+      <div class="wf-placeholder badge">Live Reviews<br>⭐⭐⭐⭐⭐</div>
+      <div class="wf-placeholder badge">Financial<br>Conduct Certified</div>
+      <div class="wf-placeholder badge">UK Customer<br>Award Winner</div>
+    </div>
   </section>
 
-  <section class="featured-cars">
-    <div class="card">
-      <div class="wireframe-box car-img">Car Image Placeholder</div>
-      <h3>Car Model A</h3>
-      <p>£XXX / month</p>
-      <a href="#" class="btn">View Details</a>
-    </div>
-    <div class="card">
-      <div class="wireframe-box car-img">Car Image Placeholder</div>
-      <h3>Car Model B</h3>
-      <p>£XXX / month</p>
-      <a href="#" class="btn">View Details</a>
-    </div>
-    <div class="card">
-      <div class="wireframe-box car-img">Car Image Placeholder</div>
-      <h3>Car Model C</h3>
-      <p>£XXX / month</p>
-      <a href="#" class="btn">View Details</a>
-    </div>
-  </section>
+  <main class="container main-content">
+    <h2 class="section-title">Featured Leasing Deals</h2>
+    <div class="car-grid" id="carGridContainer">
+      </div>
+  </main>
 
   <footer>
-    <p>About Us | Quick Links | Terms & Conditions | Privacy Policy</p>
-    <p>Contact: XXX-XXXX-XXXX | Email: support@lingscars.com</p>
+    <div class="container footer-flex">
+      <div class="footer-links">
+        <span>About Us</span> | <span>Terms & Conditions</span> | <span>Privacy Policy</span>
+      </div>
+      <div>
+        <p style="margin: 0 0 5px 0;">© 2026 LINGsCARS UX Remake Project.</p>
+        <a href="admin.html" class="hidden-admin-link">⚙️ System Administration</a>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    // 默认展示的线框图数据
+    const defaultCars = [
+      { name: "Volkswagen Golf Hatchback", price: "£215", isPlaceholder: true, text: "Vehicle Image Wireframe A" },
+      { name: "BMW 3 Series Saloon", price: "£345", isPlaceholder: true, text: "Vehicle Image Wireframe B" },
+      { name: "Tesla Model Y Electric", price: "£420", isPlaceholder: true, text: "Vehicle Image Wireframe C" }
+    ];
+
+    function renderCars() {
+      const container = document.getElementById('carGridContainer');
+      container.innerHTML = '';
+
+      // 从本地存储读取用户在后台上传的真实车辆照片数据
+      const customCars = JSON.parse(localStorage.getItem('lingscars_custom_cars')) || [];
+      
+      // 合并默认线框和用户上传的数据（用户上传的排在最前面展示）
+      const allCars = [...customCars, ...defaultCars];
+
+      allCars.forEach(car => {
+        const card = document.createElement('div');
+        card.className = 'car-card';
+
+        let imgHtml = '';
+        // 判断是占位符还是用户真实上传的图片
+        if (car.isPlaceholder) {
+          imgHtml = `<div class="wf-placeholder car-img-box">${car.text}</div>`;
+        } else {
+          imgHtml = `<div class="car-img-box"><img src="${car.imgData}" alt="Car Image"></div>`;
+        }
+
+        card.innerHTML = `
+          <div>
+            ${imgHtml}
+            <h3>${car.name}</h3>
+          </div>
+          <div>
+            <div class="price">${car.price} <span style="font-size:0.8rem; font-weight:normal;">/ pm</span></div>
+            <button class="btn" style="width: 100%;">Configure Lease</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 页面加载时执行渲染
+    window.onload = renderCars;
+  </script>
 </body>
 </html>
